@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // —————————————————— 事件处理 ——————————————————
+        var event = {
+            clientList: [],
+            // 监听的事件   此事件所对应的函数数组
+            listen: function(key, fn) {
+                if(!this.clientList[key]) {
+                    this.clientList[key] = [];
+                }
+                this.clientList[key].push(fn);
+            },
+            // 触发这个事件
+            trigger: function() {
+                var key = Array.prototype.shift.call(arguments)
+                    fns = this.clientList[key];
+                
+                if(!fns || fns.length === 0) {
+                    return false;
+                }
+
+                for(var i = 0, fn; fn = fns[i++]; ) {
+                    fn.apply(this, arguments);
+                }
+            },
+            // 移除这个事件
+            remove: function(key, fn) {
+                var fns = this.clientList[key];
+                if(!fns) {
+                    return false;
+                }
+
+                if(!fn) {
+                    fns && (fns.length = 0);
+                } else {
+                    for(var l = fns.length - 1; l >= 0; i--) {
+                        var _fn = fns[l];
+                        if(_fn === fn) {
+                            fns.splice(l, 1);
+                        }
+                    }
+                }
+            },
+        };
+
+        var installEvent = function(obj) {
+            for(var i in event) {
+                obj[i] = event[i];
+            };
+        };
+
+        // —————————————————— test date ——————————————————
+        var salesOffices = {};
+        installEvent(salesOffices);
+
+        salesOffices.listen('squareMeter88', fn1 = function(price) {
+            console.log('价格 = ' + price);
+        });
+
+        salesOffices.listen('squareMeter110', fn2 = function(price) {
+            console.log('价格 = ' + price);
+        });
+
+        salesOffices.trigger('squareMeter88', 2000000);
+        salesOffices.trigger('squareMeter110', 3000000);
+
+        salesOffices.remove('squareMeter88', fn1);
+        salesOffices.trigger('squareMeter88', 2000000);
+
+        
+    </script>
+</body>
+</html>

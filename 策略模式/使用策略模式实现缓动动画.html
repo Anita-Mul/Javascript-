@@ -1,0 +1,64 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>小球移动</title>
+</head>
+<body>
+    <div style="position: absolute; background-color: blueviolet; width: 20px; height: 20px; border-radius: 20px;" id="div"></div>
+    <script>
+        var tween = {
+            // 动画已消耗的时间、小球的原始位置、小球的目标位置、动画持续的总时间
+            // 返回元素的当前位置
+            linear: function(t, b, c, d) {
+                return c * t / d + b;
+            }
+        };
+
+        var Animate = function(dom) {
+            this.dom = dom;
+            this.startTime = 0;
+            this.startPos = 0;
+            this.endPos = 0;
+            this.propertyName = null;
+            this.easing = null;
+            this.duration = null;
+        };
+
+        Animate.prototype.start = function(propertyName, endPos, duration, easing) {
+            this.startTime = +new Date;
+            this.startPos = this.dom.getBoundingClientRect()[propertyName];
+            this.propertyName = propertyName;
+            this.endPos = endPos;
+            this.duration = duration;
+            this.easing = tween[easing];
+
+            var self = this;
+            var time = setInterval(function(){
+                if(self.step() == false) {
+                    clearInterval(timeId);
+                }
+            }, 19);
+        }
+
+        Animate.prototype.update = function(pos) {
+            this.dom.style[this.propertyName] = pos + 'px';
+        };
+
+        Animate.prototype.step = function() {
+            var t = +new Date;
+            if(t >= this.startTime + this.duration) {
+                this.update(this.endPos);
+                return false;
+            }
+
+            var pos = this.easing(t - this.startTime, this.startPos, this.endPos - this.startPos, this.duration);
+            this.update(pos);
+        };
+
+        var div = document.getElementById('div');
+        var animate = new Animate(div);
+
+        animate.start('left', 500, 1000, 'linear');
+    </script>
+</body>
+</html>
