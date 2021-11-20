@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function isArrayLike(o) {
+            if(o &&                                    // o不是null、undefined等
+                typeof o === 'object' &&                // o是对象
+                isFinite(o.length) &&                   // o.length是有限数值
+                o.length >= 0 &&                        // o.length为非负值
+                o.length === Math.floor(o.length) &&    // o.length是整数
+                o.length < 4294967296)                  // o.length < 2^32
+                return true
+            else
+                return false
+        }
+
+        each = function(obj, callback) {
+            var value,
+                i = 0,
+                length = obj.length,
+                isArray = isArrayLike(obj);
+
+            if(isArray) {
+                for(; i < length; i++) {
+                    value = callback.call(obj[i], i, obj[i]);
+                    if(value === false) {
+                        break;
+                    }
+                }
+            } else {
+                for(i in obj) {
+                    value = callback.call(obj[i], i, obj[i]);
+                    if(value === false) {
+                        break;
+                    }
+                }
+            }
+
+            return obj
+        };
+
+        each([1, 2, 3, 4, 5], function(i, value) {
+            console.log(i + "   " + value);
+        });
+
+        // hello    1
+        // world    2
+        each({hello: 1, world: 2}, function(i, value) {
+            console.log(i + "   " + value);
+        });
+    </script>
+</body>
+</html>

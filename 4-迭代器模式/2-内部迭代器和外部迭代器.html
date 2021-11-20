@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var Iterator = function(obj) {
+            var current = 0;
+
+            var next = function() {
+                current += 1;
+            };
+
+            var isDone = function() {
+                return current >= obj.length;
+            };
+
+            var getCurrItem = function() {
+                return obj[current];
+            };
+            return {
+                next: next,
+                isDone: isDone,
+                getCurrItem: getCurrItem,
+                length: obj.length
+            };
+        };
+
+        var compare = function(iterator1, iterator2) {
+            if(iterator1.length != iterator2.length) {
+                alert('不相等');
+            }
+
+            while(!iterator1.isDone() && !iterator2.isDone()) {
+                if(iterator1.getCurrItem() !== iterator2.getCurrItem()) {
+                    alert('不相等');
+                }
+                iterator1.next();
+                iterator2.next();
+            }
+
+            alert('相等');
+        };
+
+        compare(new Iterator([1, 2, 3]), new Iterator([1, 2, 3]));
+    </script>
+</body>
+</html>
