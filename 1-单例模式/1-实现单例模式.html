@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // ———————————— part1 —————————————
+        var Singleton = function(name) {
+            this.name = name;
+            this.instance = null;
+        };
+
+        Singleton.prototype.getName = function() {
+            alert(this.name);
+        };
+
+        Singleton.getInstance = function(name) {
+            if(!this.instance) {
+                this.instance = new Singleton(name);
+            }
+            return this.instance
+        };
+
+        // ———————————— part2 —————————————
+        var Singleton2 = function(name) {
+            this.name = name;
+        };
+
+        Singleton2.prototype.getName = function() {
+            alert(this.name);
+        };
+
+        Singleton2.getInstance = (function(){
+            var instance = null;
+            return function(name){
+                return instance ? instance : instance = new Singleton2(name);
+            };
+        })();
+    </script>
+</body>
+</html>

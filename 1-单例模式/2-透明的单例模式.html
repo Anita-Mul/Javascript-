@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var CreateDiv = (function(){
+            var instance;
+
+            return function(html){
+                if(!instance) {
+                    var div = document.createElement('div');
+                    div.innerHTML = html;
+                    document.body.appendChild(div);
+                    instance = this;
+                }
+
+                return instance;
+            };
+        })();
+
+        var a = new CreateDiv('sven1');
+        var b = new CreateDiv('sven2');
+        alert(a === b);
+
+        // —————————————— 分开写 ——————————————
+
+        var Create = (function(){
+            var instance;
+
+            var Create = function(html) {
+                if(!instance) {
+                    this.html = html;
+                    this.init(html);
+                    instance = this;
+                }
+
+                return instance;
+            };
+
+            Create.prototype.init = function(html) {
+                var div = document.createElement('div');
+                div.innerHTML = html;
+                document.body.appendChild(div);
+            };
+
+            return Create;
+        })();
+
+        var c = new Create('sven3');
+        var d = new Create('sven4');
+        alert(c === d);
+    </script>
+</body>
+</html>
