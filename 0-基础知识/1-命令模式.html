@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="execute">打开</button>
+    <button id="undo">关闭</button>
+    <script>
+        var TV = {
+            open: function() {
+                console.log('打开计算机');
+            },
+            close: function() {
+                console.log('关闭计算机');
+            }
+        };
+
+        var createCommand = function(receiver) {
+            var execute = function() {
+                return receiver.open();
+            };
+
+            var undo = function() {
+                return receiver.close();
+            }
+
+            return {
+                execute: execute,
+                undo: undo
+            };
+        };
+
+        var setCommand = function(command) {
+            document.getElementById('execute').onclick = function() {
+                command.execute();
+            };
+
+            document.getElementById('undo').onclick = function() {
+                command.undo();
+            };
+        };
+
+        setCommand(createCommand(TV));
+    </script>
+</body>
+</html>
