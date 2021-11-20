@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var myImage = (function() {
+            var imgNode = document.createElement('img');
+            document.body.appendChild(imgNode);
+
+            return function(src) {
+                imgNode.src = src;
+            }
+        })();
+
+        var proxyImage = (function() {
+            var img = new Image;
+            img.onload = function() {
+                // myImage.setSrc(this.src);
+                // 变得太快，看不出效果，所以加了定时器
+                setTimeout(() => {
+                    myImage(this.src);
+                }, 1000);
+            };
+
+            return function(src) {
+                myImage('https://pic3.zhimg.com/v2-d0e1883a8b5126baeaf677cfcd3a302e_b.webp');
+                img.src = src;
+            }
+        })();
+
+        proxyImage("https://pic2.zhimg.com/v2-227d2013bf43c562113f2dc6d918f7d5_b.jpg");
+    </script>
+</body>
+</html>
