@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="module" >
+        import Event from './splitSpaceEvent.js';
+
+        Event.create('namespace1').listen('click', function(a){
+            console.log(a);
+        });
+        Event.create('namespace1').trigger('click', 1);
+
+        Event.create('namespace2').listen('click', function(a){
+            console.log(a);
+        });
+        Event.create('namespace2').trigger('click', 2);
+    </script>
+</body>
+</html>

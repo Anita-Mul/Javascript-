@@ -146,3 +146,6 @@ var Event = (function() {
 
     return Event;
 })();
+
+
+export default Event;
