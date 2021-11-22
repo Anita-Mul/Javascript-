@@ -41,7 +41,7 @@
             this.easing = tween[easing];
 
             var self = this;
-            var time = setInterval(function(){
+            var timeId = setInterval(function(){
                 if(self.step() == false) {
                     clearInterval(timeId);
                 }
