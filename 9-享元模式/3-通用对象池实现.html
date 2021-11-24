@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var objectPoolFactory = function(createObjFn) {
+            var objectPool = [];
+            return {
+                create: function() {
+                    console.log(objectPool);
+                    var obj = objectPool.length === 0 ? createObjFn.apply(this, arguments) : objectPool.shift();
+                    return obj;
+                },
+                recover: function(obj) {
+                    objectPool.push(obj);
+                }
+            }
+        };
+
+        var iframeFactory = objectPoolFactory(function() {
+            var iframe = document.createElement('iframe');
+            document.body.appendChild(iframe);
+
+            iframe.onload = function() {
+                iframe.onload = null;
+                iframeFactory.recover(iframe);
+            };
+
+            return iframe;
+        });
+
+        var iframe1 = iframeFactory.create();
+        iframe1.src = 'https://www.zhihu.com/';
+
+        var iframe1 = iframeFactory.create();
+        iframe1.src = 'https://QQ.com';
+
+        setTimeout(function() {   // 使用的是 objectPool 里面的
+            var iframe1 = iframeFactory.create();
+            iframe1.src = 'https://163.com';
+        }, 3000);
+    </script>
+</body>
+</html>
