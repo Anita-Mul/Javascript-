@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var order500 = function(orderType, pay, stock) {
+            if(orderType === 1 && pay === true) {
+                console.log('500元定金预约， 得到100优惠劵');
+            } else {
+                return 'nextSuccessor';
+            }
+        }; 
+
+        var order200 = function(orderType, pay, stock) {
+            if(orderType === 2 && pay === true) {
+                console.log('200元定金预约， 得到50优惠劵');
+            } else {
+                return 'nextSuccessor';
+            }
+        }; 
+
+        var orderNormal = function(orderType, pay, stock) {
+            if(stock > 0) {
+                console.log('普通购买，无优惠劵');
+            } else {
+                console.log('手机库存不足');
+            }
+        }; 
+
+        Function.prototype.after = function(fn) {
+            var self = this;
+            return function() {
+                var ret = self.apply(this,arguments);
+                if(ret === 'nextSuccessor') {
+                    // this 是 window
+                    return fn.apply(this, arguments);
+                }
+                return ret;
+            }
+        };
+
+        var order = order500.after(order200).after(orderNormal);
+
+        order(1, true, 500);
+        order(2, true, 500);
+        order(1, false, 500);
+    </script>
+</body>
+</html>
