@@ -11,6 +11,7 @@
         window.external.upload = function( state ){
             console.log( state );     // 可能为sign、uploading、done、error
         };
+
         var plugin = (function(){
             var plugin = document.createElement( 'embed' );
             plugin.style.display = 'none';
@@ -42,16 +43,16 @@
         })();
 
         var Upload = function( fileName ){
-            this.plugin = plugin;
-            this.fileName = fileName;
-            this.button1 = null;
-            this.button2 = null;
-            this.signState = new SignState( this );    // 设置初始状态为waiting
+            this.plugin     = plugin;
+            this.fileName   = fileName;
+            this.button1    = null;
+            this.button2    = null;
+            this.signState  = new SignState( this );    // 设置初始状态为waiting
             this.uploadingState = new UploadingState( this );
             this.pauseState = new PauseState( this );
-            this.doneState = new DoneState( this );
+            this.doneState  = new DoneState( this );
             this.errorState = new ErrorState( this );
-            this.currState = this.signState;    // 设置当前状态
+            this.currState  = this.signState;    // 设置当前状态
         };
 
         Upload.prototype.init = function(){
@@ -184,6 +185,7 @@
             }
         });
 
+        // 测试
         var uploadObj = new Upload( 'JavaScript设计模式与开发实践' );
         uploadObj.init();
 
