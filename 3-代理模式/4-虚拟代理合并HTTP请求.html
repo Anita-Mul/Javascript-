@@ -43,7 +43,7 @@
 
         var checkbox = document.getElementsByTagName('input');
 
-        for(var i = 0, c; c = checkbox[i++]; ) {
+        for(c of checkbox) {
             c.onclick = function() {
                 if(this.checked === true) {
                     proxySynchronousFile(this.id);

@@ -27,7 +27,7 @@
                     return false;
                 }
 
-                for(var i = 0, fn; fn = fns[i++]; ) {
+                for(fn of fns) {
                     fn.apply(this, arguments);
                 }
             },

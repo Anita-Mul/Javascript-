@@ -12,6 +12,7 @@
             var cache = [];
             
             var handler = function(ev) {
+                // F2
                 if(ev.keyCode === 113) {
                     var script = document.createElement('script');
                     script.onload = function() {
@@ -37,6 +38,8 @@
             };
         })();
 
+        // 当按下 f2
+        // 屏幕上会输出 11 12 13
         miniConsole.log(11);
         miniConsole.log(12);
         miniConsole.log(13);

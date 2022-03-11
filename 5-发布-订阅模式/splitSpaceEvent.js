@@ -67,9 +67,11 @@ var Event = (function() {
         };
 
         _create = function(namespace) {
+            // _default: 'default'
             var namespace = namespace || _default;
             var cache =  {},
             offlineStack = [],  // 离线事件
+
             ret = {
                 listen: function(key, fn, last) {
                     _listen(key, fn, cache);
@@ -97,7 +99,7 @@ var Event = (function() {
                     _remove(key, cache, fn);
                 },
 
-                trigger: function(){
+                trigger: function() {
                     var fn,
                         args,
                         _self = this;

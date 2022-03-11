@@ -27,5 +27,5 @@ class Observed {
     }
 }
  
-export default new Observed();
+
 

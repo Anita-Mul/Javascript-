@@ -18,6 +18,7 @@
             }
         };
 
+        // 代理
         var B = {
             receiveFlower: function() {
                 A.listenGoodMood(function() {
@@ -26,6 +27,7 @@
                 });
             },
         };
+        
         var A = {
             receiveFlower: function(flower) {
                 console.log('收到花' + flower);

@@ -24,7 +24,7 @@ class Subscriber{
     doUpdate(type,arg){
         console.log("接受到消息"+arg)
     }
- }
+}
 
 
 //调度中心
@@ -74,7 +74,7 @@ class Reader extends Subscriber{
 
 
 class WeiX extends Pub{
-    constructor(name,dispatcher){
+    constructor(name, dispatcher){
         super(dispatcher);
         this.name = name;
     }

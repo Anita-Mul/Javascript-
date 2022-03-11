@@ -27,8 +27,8 @@
                 isArray = isArrayLike(obj);
 
             if(isArray) {
-                for(; i < length; i++) {
-                    value = callback.call(obj[i], i, obj[i]);
+                for( value of obj) {
+                    value = callback.call(value, i++, value);
                     if(value === false) {
                         break;
                     }

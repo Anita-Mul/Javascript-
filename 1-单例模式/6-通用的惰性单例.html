@@ -9,12 +9,13 @@
 <body>
     <button id="loginBtn">登录</button>
     <script>
-        var getSingle = function(fn){
+        var getSingle = function(fn) {
             var result;
             return function(){
                 return result || (result = fn.apply(this, arguments));
             }
         };
+        
         var createLoginLayer = function() {
             div = document.createElement('div');    
             div.innerHTML = '我是登录弹窗';
