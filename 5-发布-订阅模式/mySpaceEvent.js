@@ -79,3 +79,9 @@ var Event = (function(){
 })();
 
 export default Event;
+
+var test = {
+    "space1": {
+        "click": [function],
+    },
+}

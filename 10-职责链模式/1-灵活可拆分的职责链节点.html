@@ -44,6 +44,7 @@
 
         // 传递请求给某个节点
         Chain.prototype.passRequest = function() {
+            // 在一条链上传递的是相同的参数 arguments
             var ret = this.fn.apply(this, arguments);
 
             if(ret === 'nextSuccessor') {
